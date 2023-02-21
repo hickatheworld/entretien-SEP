@@ -1,0 +1,31 @@
+{
+  "name": "hotel--backend",
+  "version": "1.0.0",
+  "description": "API de l'Hôtel du Lac Blanc",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && node build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hickatheworld/entretien-SEP.git"
+  },
+  "author": "Paul Leflon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hickatheworld/entretien-SEP/issues"
+  },
+  "homepage": "https://github.com/hickatheworld/entretien-SEP#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "joi": "^17.8.1",
+    "mysql2": "^3.1.2",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.14.0"
+  }
+}
