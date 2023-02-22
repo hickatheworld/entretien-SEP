@@ -3,11 +3,13 @@ import express from 'express';
 import { auth } from './middleware/auth';
 import AuthRooter from './routes/auth';
 import ReservationRouter from './routes/reservations';
+import cookieParser from 'cookie-parser';
 import RoomsRooter from './routes/rooms';
 dotenv.config();
 
 const app = express();
 
+app.use(cookieParser());
 app.use(express.json());
 app.use('/auth', AuthRooter);
 app.use(auth);

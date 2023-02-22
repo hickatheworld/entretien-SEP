@@ -14,22 +14,22 @@ router.post('/login', async (req: Request, res: Response) => {
 		if (!valid)
 			return res.status(401).json({ error: 'Invalid password' });
 
-		const access = jwt.sign({ username, role: user.role }, process.env.JWT_SECRET!, { expiresIn: '1h', algorithm: 'HS256' });
-		const refresh = jwt.sign({ username, role: user.role }, process.env.JWT_SECRET!, { expiresIn: '7d', algorithm: 'HS256' });
-		res.json({ access, refresh });
+		const access_token = jwt.sign({ username, role: user.role }, process.env.JWT_SECRET!, { expiresIn: '1h', algorithm: 'HS256' });
+		const refresh_token = jwt.sign({ username, role: user.role }, process.env.JWT_SECRET!, { expiresIn: '7d', algorithm: 'HS256' });
+		res.json({ access_token, refresh_token });
 	} catch (e: any) {
 		res.status(500).json({ error: e.message });
 	}
 });
 
 router.post('/refresh', async (req: Request, res: Response) => {
-	const { token } = req.body;
-	if (!token)
+	const { refresh_token } = req.cookies;
+	if (!refresh_token)
 		return res.status(401).json({ error: 'No refresh token provided' });
 	try {
-		const decoded = jwt.verify(token, process.env.JWT_SECRET!, { algorithms: ['HS256'] }) as { username: string, role: string };
-		const access = jwt.sign({ username: decoded.username, role: decoded.role }, process.env.JWT_SECRET!, { expiresIn: '1h', algorithm: 'HS256' });
-		res.json({ access });
+		const decoded = jwt.verify(refresh_token, process.env.JWT_SECRET!, { algorithms: ['HS256'] }) as { username: string, role: string };
+		const access_token = jwt.sign({ username: decoded.username, role: decoded.role }, process.env.JWT_SECRET!, { expiresIn: '1h', algorithm: 'HS256' });
+		res.json({ access_token });
 	} catch (e: any) {
 		res.status(401).json({ error: e.message });
 	}

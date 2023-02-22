@@ -13,24 +13,23 @@ Pour obtenir un token, il faut envoyer une requête POST à `/auth/login` avec c
 Si les identifiants sont corrects, le serveur renvoie la réponse suivante :
 ```json
 {
-    "access": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY3NzA3MjkwNCwiaWF0IjoxNjc3MDcyOTA0fQ.OQbU2cGagqpVy_Hg4JlBQmkqhrxZ7KWjjBlppFcuxuA",
-    "refresh": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY3NzA3MjkwNCwiaWF0IjoxNjc3MDcyOTA0fQ.TJpWWsGJxjR6maIis0iywr-ZIHX9soePFQuXCb0M35I"
+    "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY3NzA3MjkwNCwiaWF0IjoxNjc3MDcyOTA0fQ.OQbU2cGagqpVy_Hg4JlBQmkqhrxZ7KWjjBlppFcuxuA",
+    "refresh_token": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY3NzA3MjkwNCwiaWF0IjoxNjc3MDcyOTA0fQ.TJpWWsGJxjR6maIis0iywr-ZIHX9soePFQuXCb0M35I"
 }
 ```
 Pour autoriser les requêtes à l'API, il faut ajouter le token dans le header `Authorization` de la requête, sous la forme `Bearer <token>`.
 
+Il est recommandé de stocker l'`access_token` dans `localStorage` et le `refresh_token` dans un cookie `httpOnly`. Ce cookie sera utilisé pour rafraîchir le token d'accès.
+
 Le token d'accès expire au bout d'une heure et le token de rafraîchissement au bout de 7 jours.
 
 ### Rafraîchir un token
-Pour obtenir un nouveau token d'accès après l'expiration du précédent, envoyez une requête POST à `/auth/refresh` avec le corps JSON suivant: 
-| Nom | Description |
-| --- | --- |
-| `token` | Token de rafraîchissement |
+Pour obtenir un nouveau token d'accès après l'expiration du précédent, envoyez une requête POST à `/auth/refresh`. Le cookie `refresh_token` doit être présent dans la requête.
 
 Si le token est valide, le serveur renvoie la réponse suivante :
 ```json
 {
-    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhdWxsZWZsb24iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NzcwNzMzMDIsImV4cCI6MTY3NzA3NjkwMn0.tRX1Qt67Fn9nuyeOCLkEkQF-O62PNlZY_lDzL6keB5Q"
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhdWxsZWZsb24iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NzcwNzMzMDIsImV4cCI6MTY3NzA3NjkwMn0.tRX1Qt67Fn9nuyeOCLkEkQF-O62PNlZY_lDzL6keB5Q"
 }
 ```
 Après l'expiration du token de rafraîchissement, il faut se reconnecter.
