@@ -1,6 +1,6 @@
+import { randomBytes } from 'crypto';
 import { RowDataPacket } from 'mysql2';
 import { db } from '../db';
-import { randomBytes } from 'crypto';
 import { Reservation, ReservationDetails } from '../types/Reservation';
 
 export const getReservation = async (id: string): Promise<Reservation> => {

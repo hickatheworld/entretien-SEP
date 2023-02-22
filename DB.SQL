@@ -1,6 +1,13 @@
 CREATE DATABASE IF NOT EXISTS `HOTEL`;
 USE `HOTEL`;
 
+CREATE TABLE IF NOT EXISTS `Users` (
+	`username` VARCHAR(255) NOT NULL,
+	`password` CHAR(64) NOT NULL,
+	`role` ENUM('admin', 'user') NOT NULL DEFAULT 'user',
+	PRIMARY KEY (`username`)
+);
+
 CREATE TABLE IF NOT EXISTS `Rooms` (
 	`id` INT NOT NULL,
 	`capacity` INT NOT NULL DEFAULT 1,

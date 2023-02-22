@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { getRooms, getAvailableRooms, getBookedRooms, getRoom } from '../models/Room';
+import { getAvailableRooms, getBookedRooms, getRoom, getRooms } from '../models/Room';
 const router = Router();
 
 router.get('/all', async (_req: Request, res: Response) => {
