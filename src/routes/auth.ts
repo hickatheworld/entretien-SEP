@@ -6,7 +6,6 @@ const router = Router();
 
 router.post('/login', async (req: Request, res: Response) => {
 	const { username, password } = req.body;
-	console.log(req.body);
 	try {
 		const user = await getUser(username);
 		if (!user)
